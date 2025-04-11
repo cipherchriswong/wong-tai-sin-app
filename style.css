@@ -1,0 +1,24 @@
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  padding: 2em;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/5/5e/Wong_Tai_Sin_Temple_Courtyard_2015.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+.qian {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 1em;
+  margin-top: 2em;
+}
+button {
+  padding: 1em 2em;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 8px;
+  background-color: darkred;
+  color: white;
+}
