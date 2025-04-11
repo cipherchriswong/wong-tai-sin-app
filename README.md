@@ -1,14 +1,13 @@
 
-# 黃大仙靈籤 App
-
-網頁版靈籤程式，支援即時抽籤與籤文展示，可部署至 GitHub Pages。
+# 黃大仙靈籤 App（升級版）
 
 ## 功能
-- 按一下即抽籤
-- 顯示籤詩與解籤
-- 背景圖片靈感來自黃大仙祠
+- 抽出黃大仙籤文（現時只列出 3 支示範，可擴充至 100）
+- 搖手機即抽籤（支援 DeviceMotion）
+- 一鍵分享籤文 or 複製籤文
+- 可安裝至主畫面作 PWA 使用
 
-## 如何部署
-1. 上載此專案內容至 GitHub repo（如 cipherchriswong/wong-tai-sin-app）
-2. 前往 Settings → Pages → Source 改為 `main` branch `/ (root)`
-3. 頁面將可透過 `https://[用戶名].github.io/[repo名]` 使用
+## 安裝方式
+1. 上載至 GitHub Repo
+2. 啟用 GitHub Pages
+3. 手機開啟網址後選「加入主畫面」

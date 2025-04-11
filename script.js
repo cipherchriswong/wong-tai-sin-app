@@ -24,3 +24,16 @@ function drawFortune() {
   document.getElementById('qianMeaning').innerText = qian.meaning;
   document.getElementById('fortuneDisplay').style.display = 'block';
 }
+function shareFortune() {
+  const text = `${document.getElementById('qianNumber').innerText}\n${document.getElementById('qianPoem').innerText}\n${document.getElementById('qianMeaning').innerText}`;
+  if (navigator.share) {
+    navigator.share({ text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => alert('已複製籤文'));
+  }
+}
+window.addEventListener('devicemotion', (event) => {
+  const acceleration = event.accelerationIncludingGravity;
+  const total = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
+  if (total > 25) drawFortune();
+});

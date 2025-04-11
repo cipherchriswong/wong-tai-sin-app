@@ -1,0 +1,16 @@
+
+{
+  "name": "黃大仙靈籤",
+  "short_name": "靈籤",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#8b0000",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
