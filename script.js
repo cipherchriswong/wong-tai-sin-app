@@ -23,9 +23,14 @@ function drawFortune() {
   document.getElementById('qianPoem').innerText = qian.poem;
   document.getElementById('qianMeaning').innerText = qian.meaning;
   document.getElementById('fortuneDisplay').style.display = 'block';
-  if (navigator.vibrate) navigator.vibrate(200);
+  document.getElementById('smokeEffect').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('smokeEffect').classList.remove('show');
+  }, 800);
+  if (navigator.vibrate) {
+    navigator.vibrate([200, 100, 200]);
+  }
 }
-
 function shareFortune() {
   const text = `${document.getElementById('qianNumber').innerText}\n${document.getElementById('qianPoem').innerText}\n${document.getElementById('qianMeaning').innerText}`;
   if (navigator.share) {
@@ -36,27 +41,21 @@ function shareFortune() {
     });
   }
 }
-
-// Motion 授權 + 搖動檢測
 function enableMotionShake() {
-  if (typeof DeviceMotionEvent.requestPermission === 'function') {
-    DeviceMotionEvent.requestPermission()
-      .then(permissionState => {
-        if (permissionState === 'granted') {
-          window.addEventListener('devicemotion', handleMotion);
-        }
-      }).catch(console.error);
+  if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+    DeviceMotionEvent.requestPermission().then(state => {
+      if (state === 'granted') window.addEventListener('devicemotion', handleMotion);
+    });
   } else {
     window.addEventListener('devicemotion', handleMotion);
   }
 }
 let lastShake = Date.now();
-function handleMotion(event) {
-  const acc = event.accelerationIncludingGravity;
+function handleMotion(e) {
+  const acc = e.accelerationIncludingGravity;
   const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
   if (total > 25 && Date.now() - lastShake > 1000) {
     lastShake = Date.now();
     drawFortune();
   }
 }
-enableMotionShake();
