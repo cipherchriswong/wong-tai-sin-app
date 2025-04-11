@@ -23,17 +23,40 @@ function drawFortune() {
   document.getElementById('qianPoem').innerText = qian.poem;
   document.getElementById('qianMeaning').innerText = qian.meaning;
   document.getElementById('fortuneDisplay').style.display = 'block';
+  if (navigator.vibrate) navigator.vibrate(200);
 }
+
 function shareFortune() {
   const text = `${document.getElementById('qianNumber').innerText}\n${document.getElementById('qianPoem').innerText}\n${document.getElementById('qianMeaning').innerText}`;
   if (navigator.share) {
-    navigator.share({ text });
+    navigator.share({ title: "黃大仙籤文", text });
   } else {
-    navigator.clipboard.writeText(text).then(() => alert('已複製籤文'));
+    navigator.clipboard.writeText(text).then(() => {
+      alert("籤文已複製，可自行貼上分享！");
+    });
   }
 }
-window.addEventListener('devicemotion', (event) => {
-  const acceleration = event.accelerationIncludingGravity;
-  const total = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
-  if (total > 25) drawFortune();
-});
+
+// Motion 授權 + 搖動檢測
+function enableMotionShake() {
+  if (typeof DeviceMotionEvent.requestPermission === 'function') {
+    DeviceMotionEvent.requestPermission()
+      .then(permissionState => {
+        if (permissionState === 'granted') {
+          window.addEventListener('devicemotion', handleMotion);
+        }
+      }).catch(console.error);
+  } else {
+    window.addEventListener('devicemotion', handleMotion);
+  }
+}
+let lastShake = Date.now();
+function handleMotion(event) {
+  const acc = event.accelerationIncludingGravity;
+  const total = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+  if (total > 25 && Date.now() - lastShake > 1000) {
+    lastShake = Date.now();
+    drawFortune();
+  }
+}
+enableMotionShake();
