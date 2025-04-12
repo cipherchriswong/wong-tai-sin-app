@@ -10,20 +10,15 @@ for (let i = 1; i <= 100; i++) {
 }
 
 function drawFortune() {
-  // 播放音效
+  const index = Math.floor(Math.random() * fortunes.length);
+  displayFortune(index);
+
   const audio = new Audio("draw.mp3");
   audio.play();
 
-  // 手機震動
   if (navigator.vibrate) {
     navigator.vibrate(200);
   }
-
-  // 3 秒後顯示籤文
-  const index = Math.floor(Math.random() * fortunes.length);
-  setTimeout(() => {
-    displayFortune(index);
-  }, 3000);
 }
 
 function displayFortune(index) {
@@ -56,3 +51,17 @@ function shareFortune() {
     alert("請手動複製分享內容：\n" + text);
   }
 }
+
+// 搖手機觸發
+let lastShake = Date.now();
+window.addEventListener("devicemotion", function (event) {
+  const acc = event.accelerationIncludingGravity;
+  const threshold = 15;
+  if (acc && (Math.abs(acc.x) > threshold || Math.abs(acc.y) > threshold || Math.abs(acc.z) > threshold)) {
+    const now = Date.now();
+    if (now - lastShake > 1500) {
+      drawFortune();
+      lastShake = now;
+    }
+  }
+});
