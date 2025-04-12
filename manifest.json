@@ -1,0 +1,16 @@
+
+{
+  "name": "黃大仙靈簽",
+  "short_name": "靈簽",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#800000",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
